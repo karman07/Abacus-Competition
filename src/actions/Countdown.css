@@ -1,0 +1,16 @@
+/* Countdown.css */
+.countdown-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.countdown-text {
+  color: black;
+  margin-right: 10px;
+  font-weight: bold; /* Bold text */
+}
+
+.time-text {
+  color: red; /* Pinkish-red color */
+}
