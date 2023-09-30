@@ -10,11 +10,7 @@ const Format = (props) => {
   const [number2, setnumber2] = useState("");
   const [answer, setanswer] = useState("");
 
-  function generateRandomNumbersAndProduct(mul1, mul2) {
-    // if (digit <= 0) {
-    //   throw new Error("Digit must be a positive integer");
-    // }
-    console.log(mul1 , mul2)
+  function division(mul1, mul2) {
 
     let min = Math.pow(10, mul1 - 1);
     let max = Math.pow(10, mul1) - 1;
@@ -35,12 +31,14 @@ const Format = (props) => {
         number2 = Math.floor(Math.random() * (max - min + 1)) + min;
       }
     }else{
-      while (number1 % number2 != 0) {
+      while (number1 % number2 != 0 ) {
         number2 = Math.floor(Math.random() * (max - min + 1)) + min;
       }
     }
 
     const product = number1 / number2;
+
+    console.log(" Bhai " + number2 == 1)
 
     setanswer(product);
     setnumber1(number1);
@@ -53,13 +51,13 @@ const Format = (props) => {
     if (sno != props.sno) {
       setmulti1(props.multi1);
       setmulti2(props.multi2);
-      generateRandomNumbersAndProduct(multi1, multi2);
+      division(multi1, multi2);
       settext("");
     } else {
       if (tip) {
         setmulti1(props.multi1);
         setmulti2(props.multi2);
-        generateRandomNumbersAndProduct(multi1, multi2);
+        division(multi1, multi2);
       }
     }
   });
@@ -116,7 +114,7 @@ const Format = (props) => {
               className="bg-white d-flex align-items-center justify-content-center mb-2"
               style={{ color: "rgb(19, 98, 3)" }}
             >
-              <b>÷ {number2}</b>
+              <b>÷ {number2 != 1?number2:division(multi1, multi2)}</b>
             </div>
 
             <input

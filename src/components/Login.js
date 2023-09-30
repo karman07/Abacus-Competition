@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';  // Removed useEffect since 
 import Logo from '../abacus2023.png';
 import { useNavigate } from 'react-router-dom';
 import Home from './Home';
+import { Container, Card, Form, Button, Image } from "react-bootstrap";
 
 const Login = () => {
 
@@ -43,41 +44,28 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-        <div className="col-auto">
-          <img src={Logo} width={200} className="img-fluid" />
-
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
-            <input
-              type="text"  // Changed type to 'text'
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              onChange={onChange}
-              name="name"
-              value={credentials.name}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              name="password"
-              onChange={onChange}
-              value={credentials.password}
-            />
-          </div>
-
-          <button onClick={handleSumbit} type="submit" className="btn btn-success">
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
+    <Container>
+    <Card className="shadow-lg">
+      <Card.Header className="bg-success text-white">
+        <h3 className="text-center">Sprouting Minds Abacus</h3>
+      </Card.Header>
+      <Card.Body>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" onChange={onChange} id="exampleInputEmail1" name="name" value={credentials.name}/>
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Enter password" name="password" onChange={onChange} value={credentials.password}/>
+          </Form.Group>
+          <Button type="submit" onClick={handleSumbit} className="btn-success btn-block my-3">
+            Login
+          </Button>
+        </Form>
+      </Card.Body>
+    </Card>
+  </Container>
   );
 };
 

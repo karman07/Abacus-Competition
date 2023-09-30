@@ -1,67 +1,93 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const NumberBox = (props) => {
-  const [tip, setTip]= useState(true);
+  const [tip, setTip] = useState(true);
   const [sno, setsno] = useState(props.sno);
   const [numbers, setNumbers] = useState([]);
-  const[answer, setanswer] = useState();
+  const [answer, setanswer] = useState();
   const [displayText, setDisplayText] = useState(props.text); // Initialize with the prop value
-  const digit = props.digit
-  
+  const digit = props.digit;
+
   useEffect(() => {
-      if (sno != props.sno) {
-        generateRandomNumbers();
-        setDisplayText("")
-      }
-     else {
+    if (sno != props.sno) {
+      generateRandomNumbers();
+      setDisplayText("");
+    } else {
       if (tip) {
         generateRandomNumbers();
       }
     }
   });
 
+  function generateSmallestNDigitNumber(n) {
+    if (n < 1) {
+      return "Invalid input";
+    }
+
+    const smallestNumber = Math.pow(10, n - 1);
+    return smallestNumber.toString();
+  }
+
   const generateRandomNumbers = () => {
     const newNumbers = [];
 
-    let random = 0
-    let answer = 0
+    let random = 0;
+    let answer = 0;
     let randomNumber = 0;
+    let g = generateSmallestNDigitNumber(digit) >= randomNumber;
 
     const min = Math.pow(10, digit - 1); // Minimum value (inclusive)
-    const max = Math.pow(10, digit) - 1
+    const max = Math.pow(10, digit) - 1;
 
     let firstNumber = Math.floor(Math.random() * (max - min + 1)) + 1;
     newNumbers.push(firstNumber);
 
     for (let i = 1; i < props.rows; i++) {
-      let randomPositiveNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      let randomPositiveNumber =
+        Math.floor(Math.random() * (max - min + 1)) + min;
       let sign = Math.random() < 0.5 ? -1 : 1;
-      randomNumber =  randomPositiveNumber * sign
+      randomNumber = randomPositiveNumber * sign;
 
       // Adjust the generated number if needed to ensure positive sum with existing numbers
       while (
         newNumbers.some((num) => num + randomNumber < 0) ||
-        randomNumber === 0
+        (randomNumber === 0 && g)
       ) {
-        let randomPositiveNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        let randomPositiveNumber =
+          Math.floor(Math.random() * (max - min + 1)) + min;
         let sign = Math.random() < 0.5 ? -1 : 1;
-        randomNumber =  randomPositiveNumber * sign
+        randomNumber = randomPositiveNumber * sign;
+        g = generateSmallestNDigitNumber(digit) >= randomNumber;
       }
 
-      answer += randomNumber
+      while (
+        generateSmallestNDigitNumber(digit) >= randomNumber ||
+        randomNumber >= Math.pow(10, digit) - 1
+      ) {
+        if (generateSmallestNDigitNumber(digit) >= randomNumber) {
+          randomNumber =
+            parseInt(generateSmallestNDigitNumber(digit)) +
+            Math.floor(Math.random() * (max - min + 1)) +
+            min;
+        }
+
+        if (randomNumber >= Math.pow(10, digit) - 1) {
+          randomNumber -= Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+      }
+
+      console.log(generateSmallestNDigitNumber(digit) >= randomNumber ||randomNumber >= Math.pow(10, digit) - 1)
+      answer += randomNumber;
       newNumbers.push(randomNumber);
     }
-    
 
-    setanswer(answer)
+    setanswer(answer);
     setNumbers(newNumbers);
     setsno(props.sno);
 
-    setTip(false)
-
+    setTip(false);
   };
 
-  
   const abort = (event) => {
     if (event.target.value != "") {
       if (parseInt(event.target.value) == answer) {
@@ -84,20 +110,18 @@ const NumberBox = (props) => {
     setDisplayText(event.target.value);
   };
 
-
   return (
     <div className="mt-3">
-
       <div className="row justify-content-center">
         <div
           className="col-6 rounded"
-          style={{ border: "2px solid rgb(19, 98, 3)" }} 
+          style={{ border: "2px solid rgb(19, 98, 3)" }}
         >
           <div className="d-flex flex-column align-items-center p-3">
             <div
               className="bg-white d-flex align-items-center justify-content-center mb-2"
               style={{ color: "rgb(19, 98, 3)" }}
-            > 
+            >
               <b>Sno. {props.number}</b>
             </div>
             {numbers.map((number, index) => (

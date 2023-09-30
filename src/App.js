@@ -8,6 +8,7 @@ import store from "./store.js";
 import { Provider } from "react-redux";
 import Format from "./components/Multiplication/Format.js";
 
+
 function App() {
   const steps = [
     "This will be of 15 minutes",

@@ -1,6 +1,6 @@
 // countdownReducer.js
 const initialState = {
-  countdownInSeconds: 20, // Initial countdown value in seconds
+  countdownInSeconds: 900, // Initial countdown value in seconds
 };
 
 const countdownReducer = (state = initialState, action) => {
