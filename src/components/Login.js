@@ -16,7 +16,7 @@ const Login = () => {
 
   const handleSumbit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`http://localhost:3000/api/auth/login`, {
+    const response = await fetch(`http://62.72.56.187:3001/api/auth/login`, {
       method: 'POST',
       mode: 'cors',
       headers: {

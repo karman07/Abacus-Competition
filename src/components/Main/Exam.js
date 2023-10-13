@@ -124,7 +124,7 @@ const Exam = (props) => {
       localStorage.setItem(type, true);
       setResetTimer(true);
 
-      await fetch('http://localhost:3000/api/result', {
+      await fetch('http://62.72.56.187:3001/api/result', {
       method: 'POST',
       body: {name: name, type: type, correct: localStorage.getItem("correct"), total: localStorage.getItem("wrong"), left: target - parseInt(localStorage.getItem("correct")) + parseInt(localStorage.getItem("wrong"))},
     })
@@ -153,11 +153,11 @@ const Exam = (props) => {
 
   useEffect(() => {
     if (type === "Speed Examination 2023") {
-      setapiUrl("http://localhost:3000/api/format/speed");
+      setapiUrl("http://62.72.56.187:3001/api/format/speed");
     } else if (type === "Accuracy Exam 2023 (Abacus)") {
-      setapiUrl("http://localhost:3000/api/format/aa");
+      setapiUrl("http://62.72.56.187:3001/api/format/aa");
     } else {
-      setapiUrl("http://localhost:3000/api/format/am");
+      setapiUrl("http://62.72.56.187:3001/api/format/am");
     }
 
     if (done) {
@@ -177,7 +177,7 @@ const Exam = (props) => {
 
       console.log("It's Over")
 
-      const response = fetch('http://localhost:3000/api/result', {
+      const response = fetch('http://62.72.56.187:3001/api/result', {
         method: 'POST',
         body: JSON.stringify({
           name: name,

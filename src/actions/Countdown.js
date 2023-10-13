@@ -24,7 +24,7 @@ const Countdown = ({
     decrementCountdown();
 
     try {
-      const response = await fetch("http://localhost:3000/api/result", {
+      const response = await fetch("http://62.72.56.187:3001/api/result", {
         method: "POST",
         body: {
           name: name,
